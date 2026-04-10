@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="green_category">#FF34A853</color>
+    <color name="yellow_category">#FFFBBC04</color>
+    <color name="red_category">#FFEA4335</color>
+    <color name="purple_category">#FF9334E6</color>
+    <color name="glassmorphism_background">#D9FFFFFF</color>
+</resources>

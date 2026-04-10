@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "com.fruitid.app-mergeReleaseResources-76:/values-v24/values-v24.xml",
+            "map": [
+                {
+                    "source": "/home/codespace/.gradle/caches/transforms-4/19af1d8942e9aea566d77bbe86a79f37/transformed/appcompat-1.6.1/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                }
+            ]
+        }
+    ]
+}

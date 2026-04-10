@@ -33,7 +33,8 @@ class ModelDownloadManager @Inject constructor(
     suspend fun startDownload(
         url: String,
         expectedSha256: String,
-        useMobileData: Boolean = false
+        useMobileData: Boolean = false,
+        authToken: String? = null
     ): Result<Unit> = withContext(Dispatchers.IO) {
         isCancelled = false
         _downloadState.value = DownloadState.DOWNLOADING
@@ -55,7 +56,8 @@ class ModelDownloadManager @Inject constructor(
             val result = downloader.download(
                 url = url,
                 destinationFile = tempFile,
-                startByte = startByte
+                startByte = startByte,
+                authToken = authToken
             ) { progress ->
                 _progress.value = progress
                 settingsPrefs.setDownloadProgressBytes(progress.bytesDownloaded)

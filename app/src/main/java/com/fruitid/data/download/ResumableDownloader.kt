@@ -33,6 +33,7 @@ class ResumableDownloader @Inject constructor() {
         url: String,
         destinationFile: File,
         startByte: Long = 0,
+        authToken: String? = null,
         onProgress: suspend (DownloadProgress) -> Unit
     ): Result<Long> = withContext(Dispatchers.IO) {
         try {
@@ -40,7 +41,7 @@ class ResumableDownloader @Inject constructor() {
             destinationFile.parentFile?.mkdirs()
 
             // Get file size
-            val fileSize = getFileSize(url) ?: return@withContext Result.failure(
+            val fileSize = getFileSize(url, authToken) ?: return@withContext Result.failure(
                 IOException("Failed to get file size")
             )
 
@@ -54,6 +55,11 @@ class ResumableDownloader @Inject constructor() {
                 .url(url)
                 .header("Accept", "*/*")
                 .header("Accept-Encoding", "identity")
+
+            // Add HuggingFace auth token if provided
+            if (!authToken.isNullOrBlank()) {
+                requestBuilder.header("Authorization", "Bearer $authToken")
+            }
 
             if (resumePosition > 0) {
                 requestBuilder.header("Range", "bytes=$resumePosition-")
@@ -130,12 +136,17 @@ class ResumableDownloader @Inject constructor() {
         }
     }
 
-    private suspend fun getFileSize(url: String): Long? = withContext(Dispatchers.IO) {
+    private suspend fun getFileSize(url: String, authToken: String? = null): Long? = withContext(Dispatchers.IO) {
         try {
-            val request = Request.Builder()
+            val requestBuilder = Request.Builder()
                 .url(url)
                 .head()
-                .build()
+            
+            if (!authToken.isNullOrBlank()) {
+                requestBuilder.header("Authorization", "Bearer $authToken")
+            }
+            
+            val request = requestBuilder.build()
 
             client.newCall(request).execute().use { response ->
                 if (response.isSuccessful) {

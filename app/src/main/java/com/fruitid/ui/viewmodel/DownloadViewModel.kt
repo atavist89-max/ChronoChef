@@ -40,10 +40,13 @@ class DownloadViewModel @Inject constructor(
 
     fun startDownload(useMobileData: Boolean) {
         viewModelScope.launch {
+            // TODO: Get HuggingFace token from user input or secure storage
+            val hfToken = BuildConfig.HF_TOKEN.takeIf { it.isNotBlank() }
             downloadManager.startDownload(
                 url = BuildConfig.MODEL_URL,
                 expectedSha256 = BuildConfig.MODEL_SHA256,
-                useMobileData = useMobileData
+                useMobileData = useMobileData,
+                authToken = hfToken
             )
         }
     }

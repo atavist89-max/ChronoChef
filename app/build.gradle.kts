@@ -22,8 +22,8 @@ android {
             useSupportLibrary = true
         }
 
-        buildConfigField("String", "MODEL_URL", '"https://huggingface.co/google/gemma-4-e2b/resolve/main/gemma-4-e2b-q4_0.tflite"')
-        buildConfigField("String", "MODEL_SHA256", '"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"')
+        buildConfigField("String", "MODEL_URL", "\"https://huggingface.co/google/gemma-4-e2b/resolve/main/gemma-4-e2b-q4_0.tflite\"")
+        buildConfigField("String", "MODEL_SHA256", "\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"")
         buildConfigField("Long", "MODEL_SIZE_BYTES", "2684354560")
     }
 

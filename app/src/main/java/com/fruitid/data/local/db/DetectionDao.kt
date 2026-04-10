@@ -2,6 +2,7 @@ package com.fruitid.data.local.db
 
 import androidx.paging.PagingSource
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface DetectionDao {
@@ -38,4 +39,7 @@ interface DetectionDao {
     
     @Query("SELECT * FROM detections ORDER BY timestamp DESC")
     suspend fun getAll(): List<DetectionEntity>
+    
+    @Query("SELECT * FROM detections ORDER BY timestamp DESC")
+    fun getAllFlow(): Flow<List<DetectionEntity>>
 }

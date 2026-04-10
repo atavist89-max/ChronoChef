@@ -4,7 +4,6 @@ import android.content.Context
 import android.os.Environment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import androidx.paging.cachedIn
 import com.fruitid.data.local.prefs.SettingsPrefs
 import com.fruitid.data.repository.DetectionRepository
 import com.fruitid.domain.model.Detection
@@ -26,8 +25,6 @@ class HistoryViewModel @Inject constructor(
 ) : ViewModel() {
 
     val detections = detectionRepository.getDetectionHistory()
-        .cachedIn(viewModelScope)
-        .stateIn(viewModelScope, SharingStarted.Lazily, emptyList())
 
     private val _isMultiSelectMode = MutableStateFlow(false)
     val isMultiSelectMode: StateFlow<Boolean> = _isMultiSelectMode.asStateFlow()

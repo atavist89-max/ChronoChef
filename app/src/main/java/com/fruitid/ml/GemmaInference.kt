@@ -128,7 +128,7 @@ class GemmaInference @Inject constructor(
         
         // Create bitmap from YUV if needed
         // Simplified: return empty bitmap for now
-        Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        return Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
     }
 
     fun close() {

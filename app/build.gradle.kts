@@ -24,17 +24,13 @@ android {
 
         buildConfigField("String", "MODEL_URL", "\"https://huggingface.co/google/gemma-4-e2b/resolve/main/gemma-4-e2b-q4_0.tflite\"")
         buildConfigField("String", "MODEL_SHA256", "\"e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855\"")
-        buildConfigField("Long", "MODEL_SIZE_BYTES", "2684354560")
+        buildConfigField("Long", "MODEL_SIZE_BYTES", "2684354560L")
     }
 
     buildTypes {
         release {
-            isMinifyEnabled = true
-            isShrinkResources = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+            isMinifyEnabled = false
+            isShrinkResources = false
         }
         debug {
             isMinifyEnabled = false
@@ -105,6 +101,7 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     implementation("androidx.room:room-ktx:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-paging:2.6.1")
 
     // WorkManager
     implementation("androidx.work:work-runtime-ktx:2.9.0")
@@ -130,6 +127,7 @@ dependencies {
 
     // Image
     implementation("androidx.exifinterface:exifinterface:1.3.7")
+    implementation("io.coil-kt:coil-compose:2.5.0")
 
     // JSON
     implementation("com.google.code.gson:gson:2.10.1")

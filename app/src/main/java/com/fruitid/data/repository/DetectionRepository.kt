@@ -24,15 +24,9 @@ class DetectionRepository @Inject constructor(
     private val nutritionData: NutritionData,
     private val gson: Gson
 ) {
-    fun getDetectionHistory(): Flow<PagingData<Detection>> {
-        return Pager(
-            config = PagingConfig(
-                pageSize = 20,
-                enablePlaceholders = false
-            ),
-            pagingSourceFactory = { detectionDao.getAllPaged() }
-        ).flow.map { pagingData ->
-            pagingData.map { entity -> entity.toDomainModel() }
+    fun getDetectionHistory(): Flow<List<Detection>> {
+        return detectionDao.getAllFlow().map { entities ->
+            entities.map { it.toDomainModel() }
         }
     }
 

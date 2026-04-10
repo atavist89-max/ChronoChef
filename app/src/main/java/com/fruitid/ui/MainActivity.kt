@@ -71,8 +71,15 @@ fun FruitIdentifierApp(
 
         composable("camera") {
             CameraScreen(
-                onDetectionTap = { detection ->
-                    selectedDetection = detection
+                onDetectionTap = { detectionResult ->
+                    selectedDetection = Detection(
+                        timestamp = System.currentTimeMillis(),
+                        commonName = detectionResult.label,
+                        scientificName = detectionResult.scientificName,
+                        confidence = detectionResult.confidence,
+                        boundingBox = detectionResult.boundingBox,
+                        category = detectionResult.category
+                    )
                 }
             )
 

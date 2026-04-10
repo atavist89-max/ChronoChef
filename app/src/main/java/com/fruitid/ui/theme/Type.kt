@@ -2,20 +2,13 @@ package com.fruitid.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.fruitid.R
 
-// Inter Font Family - using system fonts as fallback
-val InterFontFamily = FontFamily(
-    Font(android.R.font.sans_serif, FontWeight.Normal),
-    Font(android.R.font.sans_serif, FontWeight.Medium),
-    Font(android.R.font.sans_serif, FontWeight.SemiBold),
-    Font(android.R.font.sans_serif, FontWeight.Bold)
-)
+// Using system default sans-serif font
+val InterFontFamily = FontFamily.SansSerif
 
 val Typography = Typography(
     displayLarge = TextStyle(

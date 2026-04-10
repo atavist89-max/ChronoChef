@@ -32,7 +32,7 @@ enum class DownloadState {
     NETWORK_ERROR
 }
 
-sealed class DownloadError(val message: String) {
+sealed class DownloadError(message: String) : Throwable(message) {
     object NetworkError : DownloadError("Network connection lost")
     object StorageFull : DownloadError("Storage full")
     object Corrupted : DownloadError("File corrupted")

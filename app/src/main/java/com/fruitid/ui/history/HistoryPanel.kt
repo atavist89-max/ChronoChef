@@ -41,7 +41,7 @@ fun HistoryPanel(
     modifier: Modifier = Modifier,
     viewModel: HistoryViewModel = hiltViewModel()
 ) {
-    val detections by viewModel.detections.collectAsState()
+    val detections by viewModel.detections.collectAsState(emptyList())
     val isMultiSelectMode by viewModel.isMultiSelectMode.collectAsState()
     val selectedIds by viewModel.selectedIds.collectAsState()
     var showSettings by remember { mutableStateOf(false) }
@@ -90,34 +90,27 @@ fun HistoryPanel(
             )
 
             // Content
-            if (detections.isEmpty()) {
-                EmptyHistory()
-            } else {
-                LazyColumn(
-                    modifier = Modifier.fillMaxWidth(),
-                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(
-                        items = detections,
-                        key = { it.id }
-                    ) { detection ->
-                        HistoryItem(
-                            detection = detection,
-                            isSelected = selectedIds.contains(detection.id),
-                            isMultiSelectMode = isMultiSelectMode,
-                            onClick = {
-                                if (isMultiSelectMode) {
-                                    viewModel.toggleSelection(detection.id)
-                                } else {
-                                    onDetectionClick(detection)
-                                }
-                            },
-                            onLongClick = {
+            LazyColumn(
+                modifier = Modifier.fillMaxWidth(),
+                contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp),
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(detections) { detection ->
+                    HistoryItem(
+                        detection = detection,
+                        isSelected = selectedIds.contains(detection.id),
+                        isMultiSelectMode = isMultiSelectMode,
+                        onClick = {
+                            if (isMultiSelectMode) {
                                 viewModel.toggleSelection(detection.id)
+                            } else {
+                                onDetectionClick(detection)
                             }
-                        )
-                    }
+                        },
+                        onLongClick = {
+                            viewModel.toggleSelection(detection.id)
+                        }
+                    )
                 }
             }
         }

@@ -52,7 +52,7 @@ class CameraManager @Inject constructor(
                 .setTargetResolution(PREVIEW_SIZE)
                 .build()
                 .also {
-                    it.surfaceProvider = previewView.surfaceProvider
+                    it.setSurfaceProvider(previewView.surfaceProvider)
                 }
 
             // Image analysis use case
